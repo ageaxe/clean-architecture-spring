@@ -1,0 +1,80 @@
+
+server:
+  port: 8090
+  tomcat:
+    accesslog:
+      enabled: true
+
+management:
+  endpoints:
+    # enabled-by-default: true
+    web:
+      exposure:
+        include: "*"
+  endpoint:
+    info:
+      enabled: true
+    health:
+      enabled: true
+      probes:
+        enabled: true
+
+
+spring:
+  datasource:
+    url: {DB_URL}
+    username: {DB_USER}
+    password: {DB_PASSWORD}
+  tomcat:
+    initial-size: 5
+    max-wait: 20000
+    max-active: 50
+    max-idle: 15
+    min-idle: 8
+    default-auto-commit: true
+  jpa:
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.PostgreSQLDialect
+        # jdbc:
+        # time_zone: PST
+        generate_statistics: false
+        useLegacyDatetimeCode: false
+      #hibernate:
+      #ddl-auto: none
+
+logging:
+  file:
+    name: log/app.log
+    path: .
+  pattern:
+    console: "%d %-5level %logger %X : %msg%n"
+    file: "%d %-5level [%thread] %logger %X : %msg%n"
+  level:
+    org.springframework.web: INFO
+    org.springframework: INFO
+    com.okta.sdk: TRACE
+    com.okta.jwt: INFO
+    org.apache.http: TRACE
+    org.hibernate: INFO
+    org.apache.catalina: INFO
+    org.apache.tomcat: INFO
+    org.apache.coyote: INFO
+    com.example: TRACE
+    com.okta.spring.boot.sdk: TRACE
+    # WEB: INFO
+    SQL: INFO
+    ROOT: DEBUG
+
+springdoc:
+  api-docs:
+    path: /v1/api-docs/
+  swagger-ui:
+    path: /v1/api-docs/swagger.html
+    operationsSorter: method
+stormpath:
+  client:
+    cacheManager:
+      enabled: true
+
+
